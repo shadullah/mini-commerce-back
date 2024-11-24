@@ -8,6 +8,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class RegView(APIView):
@@ -56,3 +58,13 @@ class loginView(APIView):
             
         return Response({'error':'invalid credentials'})
     
+class logoutView(APIView):
+    authentication_classes=[BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, req):
+        try:
+            logout(req)
+            return Response({"success":"Logout success"})
+        except:
+            return Response({"error": "couldn\'t logout"})
