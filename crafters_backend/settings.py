@@ -41,7 +41,22 @@ INSTALLED_APPS = [
     'account',
 
     'rest_framework',
+    'rest_framework_simplejwt',
+
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT={
+    'ACCESS_TOKEN_EXPIRY': timedelta(minutes=720),
+    'REFRESH_TOKEN_EXPIRY': timedelta(days=1)
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
