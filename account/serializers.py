@@ -3,6 +3,8 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Account
 
+from carts.models import Cart
+
 User = get_user_model()
 
 class RegSerializer(serializers.ModelSerializer):
@@ -31,6 +33,7 @@ class RegSerializer(serializers.ModelSerializer):
         account.save()
 
         Account.objects.create(user=account)
+        Cart.objects.create(customer=account)
 
         return account
 
