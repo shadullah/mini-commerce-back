@@ -33,6 +33,15 @@ class CartByUserView(APIView):
             cart = Cart.objects.get(customer_id=user_id)
             data = req.data
             data['cart']=cart.id
+
+            # filter existing item
+            existing_item = CartItem.objects.filter(cart=cart, title=data.get('title'))
+            if existing_item:
+                return Response(
+                    {"error": "An item with the same name already exists in the cart."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
             serializer = CartItemSerializer(data=data)
 
             if serializer.is_valid():
