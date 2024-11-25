@@ -23,7 +23,7 @@ class RegView(APIView):
             print(user)
             return Response("User registered successfull")
         print(serializer.errors)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
     
 class AllUserDetails(viewsets.ModelViewSet):
     queryset= User.objects.all()

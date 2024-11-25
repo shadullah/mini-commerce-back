@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
 ]
 
+# authentication with Jwt token
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
